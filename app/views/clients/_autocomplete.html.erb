@@ -1,0 +1,13 @@
+<script>
+  var input = $('input#<%=text_id%>');
+  input.val(input.attr('value'));
+  input.autocomplete({
+    source: '/clients',
+    minLength: 3,
+    select: function( event, ui ) {
+      $(this).val(ui.item.label);
+      $('input#'+$(this).data('tagid')).val(ui.item.value);
+      return false;
+    }
+  });
+</script>
