@@ -36,6 +36,10 @@ module Redmine
           view.render(:partial => 'clients/autocomplete', :locals => {text_id: text_id})
       end
 
+      def query_filter_options(custom_field, query)
+        {:type => :autocomplete}
+      end
+
     end
   end
 end
