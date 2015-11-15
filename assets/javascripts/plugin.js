@@ -1,3 +1,21 @@
+if (window['buildFilterRow_client_original'] == undefined) {
+  var buildFilterRow_client_original = buildFilterRow;
+  buildFilterRow = function(field, operator, values) {
+    var filterOptions = availableFilters[field];
+    if (filterOptions['type'] == 'autocomplete') {
+      var fieldId = field.replace('.', '_');
+      var tr = $('<tr class="filter">')
+
+      var fn = window['buildFilterRow_'+filterOptions['type']];
+      if (typeof(fn) === 'function') {
+        fn(tr.find('td.values'), field, fieldId, values);
+      }
+    } else {
+      buildFilterRow_client_original(field, operator, values);
+    }
+  }
+}
+
 function buildFilterRow_autocomplete(tag, field, fieldId, values) {
   tag.append(
     '<input type="hidden" name="v['+field+'][]" id="values_'+fieldId+'" />' +
